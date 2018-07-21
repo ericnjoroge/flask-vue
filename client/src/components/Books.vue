@@ -63,6 +63,16 @@
                         placeholder="Enter author">
           </b-form-input>
         </b-form-group>
+        <b-form-group id="form-price-group"
+                      label="Purchase price:"
+                      label-for="form-price-input">
+          <b-form-input id="form-price-input"
+                        type="number"
+                        v-model="addBookForm.price"
+                        required
+                        placeholder="Enter price">
+          </b-form-input>
+        </b-form-group>
         <b-form-group id="form-read-group">
           <b-form-checkbox-group v-model="addBookForm.read" id="form-checks">
             <b-form-checkbox value="true">Read?</b-form-checkbox>
@@ -121,6 +131,7 @@ export default {
         title: '',
         author: '',
         read: [],
+        price: '',
       },
       message: '',
       showMessage: false,
@@ -165,6 +176,7 @@ export default {
       this.addBookForm.title = '';
       this.addBookForm.author = '';
       this.addBookForm.read = [];
+      this.addBookForm.price = '';
       this.editForm.id = '';
       this.editForm.title = '';
       this.editForm.author = '';
@@ -179,6 +191,7 @@ export default {
         title: this.addBookForm.title,
         author: this.addBookForm.author,
         read, // property shorthand
+        price: this.addBookForm.price,
       };
       this.addBook(payload);
       this.initForm();
