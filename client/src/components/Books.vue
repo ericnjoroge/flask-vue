@@ -32,6 +32,9 @@
                         @click="editBook(book)">Update</button>
                 <button type="button" class="btn btn-danger btn-sm"
                         @click="onDeleteBook(book)">Delete</button>
+                <router-link :to="`/order/${book.id}`"
+                              class="btn btn-primary btn-sm">
+                  Purchase</router-link>
               </td>
             </tr>
           </tbody>
