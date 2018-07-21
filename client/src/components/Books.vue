@@ -107,6 +107,16 @@
                         placeholder="Enter author">
           </b-form-input>
         </b-form-group>
+        <b-form-group id="form-price-edit-group"
+                      label="Purchase price:"
+                      label-for="form-price-edit-input">
+          <b-form-input id="form-price-edit-input"
+                        type="number"
+                        v-model="editForm.price"
+                        required
+                        placeholder="Enter price">
+          </b-form-input>
+        </b-form-group>
         <b-form-group id="form-read-edit-group">
           <b-form-checkbox-group v-model="editForm.read" id="form-checks">
             <b-form-checkbox value="true">Read?</b-form-checkbox>
@@ -140,6 +150,7 @@ export default {
         title: '',
         author: '',
         read: [],
+        price: '',
       },
     };
   },
@@ -181,6 +192,7 @@ export default {
       this.editForm.title = '';
       this.editForm.author = '';
       this.editForm.read = [];
+      this.editForm.price = '';
     },
     onSubmit(evt) {
       evt.preventDefault();
@@ -227,6 +239,7 @@ export default {
         title: this.editForm.title,
         author: this.editForm.author,
         read,
+        price: this.editForm.price,
       };
       this.updateBook(payload, this.editForm.id);
     },
