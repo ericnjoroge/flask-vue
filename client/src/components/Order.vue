@@ -13,8 +13,8 @@
             <div class="">
               <h4>You are buying:</h4>
               <ul>
-                <li>Book Title: <em>Book Title</em></li>
-                <li>Amount: <em>$Book Price</em></li>
+                <li>Book Title: <em>{{ book.title }}</em></li>
+                <li>Amount: <em>${{ book.price }}</em></li>
               </ul>
             </div>
             <div class="">
@@ -60,7 +60,35 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
+  data() {
+    return {
+      book: {
+        title: '',
+        author: '',
+        read: [],
+        price: '',
+      },
+    };
+  },
+  methods: {
+    getBook() {
+      const path = `http://localhost:5000/books/${this.$route.params.id}`;
+      axios.get(path)
+        .then((res) => {
+          this.book = res.data.book;
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.error(error);
+        });
+    },
+  },
+  created() {
+    this.getBook();
+  },
 };
 </script>
 

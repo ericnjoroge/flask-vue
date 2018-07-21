@@ -60,9 +60,16 @@ def all_books():
         response_object['books'] = BOOKS
     return jsonify(response_object)
 
-@app.route('/books/<book_id>',methods=['PUT','DELETE'])
+@app.route('/books/<book_id>',methods=['GET','PUT','DELETE'])
 def single_book(book_id):
     response_object = {'status': 'success'}
+    if request.method == 'GET':
+        return_book = ''
+        for book in BOOKS:
+            if book['id'] == book_id:
+                return_book = book
+        response_object['book'] = return_book
+
     if request.method == 'PUT':
         post_data = request.get_json()
         remove_book(book_id)
