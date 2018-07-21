@@ -35,12 +35,14 @@
                 <input type="text"
                         class="form-control"
                         placeholder="XXXXXXXXXXXXXX"
+                        v-model="card.number"
                         required>
               </div>
               <div class="form-group">
                 <input type="text"
                         class="form-control"
                         placeholder="CVC"
+                        v-model="card.cvc"
                         required>
               </div>
               <div class="form-group">
@@ -48,10 +50,17 @@
                 <input type="text"
                         class="form-control"
                         placeholder="MM/YY"
+                        v-model="card.exp"
                         required>
               </div>
-              <button class="btn btn-primary btn-block">Submit</button>
+              <button class="btn btn-primary btn-block" @click.prevent="validate">Submit</button>
             </form>
+            <div v-show="errors">
+              <br>
+              <ol class="text-danger">
+                <li v-for="(error,index) in errors" :key="index">{{ error }}</li>
+              </ol>
+            </div>
           </div>
         </div>
       </div>
@@ -71,6 +80,12 @@ export default {
         read: [],
         price: '',
       },
+      card: {
+        number: '',
+        cvc: '',
+        exp: '',
+      },
+      errors: [],
     };
   },
   methods: {
@@ -84,6 +99,29 @@ export default {
           // eslint-disable-next-line
           console.error(error);
         });
+    },
+    validate() {
+      this.errors = [];
+      let valid = true;
+      if (!this.card.number) {
+        valid = false;
+        this.errors.push('Card Number id required');
+      }
+      if (!this.card.cvc) {
+        valid = false;
+        this.errors.push('CVC is required');
+      }
+      if (!this.card.exp) {
+        valid = false;
+        this.errors.push('Expiration date is required');
+      }
+      if (valid) {
+        this.createToken();
+      }
+    },
+    createToken() {
+      // eslint-disable-next-line
+      console.log('The form is valid!');
     },
   },
   created() {
